@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/rogpeppe/line-protocol-corpus/lpcodecs"
-	"github.com/rogpeppe/line-protocol-corpus/lpcorpus"
 )
 
 var defaultTime = time.Date(2000, 1, 2, 12, 13, 14, 0, time.UTC).UnixNano()
@@ -17,15 +16,15 @@ const (
 )
 
 func Fuzz(data []byte) int {
-	input := &lpcorpus.DecodeInput{
+	input := &lpcodecs.DecodeInput{
 		Text:        data,
 		DefaultTime: defaultTime,
-		Precision: lpcorpus.Precision{
+		Precision: lpcodecs.Precision{
 			Duration: time.Nanosecond,
 		},
 	}
 	exitCode := normalExit
-	outputs := make(map[string]*lpcorpus.DecodeOutput)
+	outputs := make(map[string]*lpcodecs.DecodeOutput)
 	for name, impl := range lpcodecs.Implementations {
 		if name != "lineprotocol" {
 			continue
@@ -35,12 +34,12 @@ func Fuzz(data []byte) int {
 			if _, ok := err.(*lpcodecs.SkipError); ok {
 				continue
 			}
-			outputs[name] = &lpcorpus.DecodeOutput{
+			outputs[name] = &lpcodecs.DecodeOutput{
 				Error: err.Error(),
 			}
 		} else {
 			exitCode = highPriorityExit
-			outputs[name] = &lpcorpus.DecodeOutput{
+			outputs[name] = &lpcodecs.DecodeOutput{
 				Result: m,
 			}
 		}
@@ -48,7 +47,7 @@ func Fuzz(data []byte) int {
 	if len(outputs) < 2 {
 		return exitCode
 	}
-	var o *lpcorpus.DecodeOutput
+	var o *lpcodecs.DecodeOutput
 	var firstName string
 	for name, d := range outputs {
 		if o == nil {

@@ -4,28 +4,20 @@ package lpcodecs
 
 import (
 	"fmt"
-
-	"github.com/rogpeppe/line-protocol-corpus/lpcorpus"
 )
 
 type Implementation struct {
 	Decoder Decoder
-	Encoder Encoder
 }
 
 var Implementations = map[string]Implementation{
 	"lineprotocol": {
 		Decoder: lineProtocolDecoder{},
-		Encoder: lineProtocolEncoder{},
 	},
 }
 
 type Decoder interface {
-	Decode(input *lpcorpus.DecodeInput) (*lpcorpus.Metric, error)
-}
-
-type Encoder interface {
-	Encode(input *lpcorpus.EncodeInput) ([]byte, error)
+	Decode(input *DecodeInput) (*Metric, error)
 }
 
 // SkipError is returned from Encoder or Decoder when

@@ -3,11 +3,9 @@ package lpcodecs
 import (
 	"bytes"
 	"time"
-
-	"github.com/rogpeppe/line-protocol-corpus/lpcorpus"
 )
 
-func fieldKeysAreSorted(fields []lpcorpus.Field) bool {
+func fieldKeysAreSorted(fields []Field) bool {
 	if len(fields) == 0 {
 		return true
 	}
@@ -21,7 +19,7 @@ func fieldKeysAreSorted(fields []lpcorpus.Field) bool {
 	return true
 }
 
-func tagKeysAreSorted(tags []lpcorpus.Tag) bool {
+func tagKeysAreSorted(tags []Tag) bool {
 	if len(tags) == 0 {
 		return true
 	}

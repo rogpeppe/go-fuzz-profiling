@@ -9,12 +9,10 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-
-	"github.com/rogpeppe/line-protocol-corpus/lpcorpus"
 )
 
 func main() {
-	corpus, err := lpcorpus.ReadCorpus("../..")
+	corpus, err := ReadCorpus("../..")
 	if err != nil {
 		log.Fatal(err)
 	}

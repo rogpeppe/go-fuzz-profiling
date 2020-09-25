@@ -14,7 +14,6 @@ import (
 	"time"
 
 	"github.com/rogpeppe/line-protocol-corpus/lpcodecs"
-	"github.com/rogpeppe/line-protocol-corpus/lpcorpus"
 	"gopkg.in/yaml.v3"
 )
 

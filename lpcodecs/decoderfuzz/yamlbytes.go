@@ -1,4 +1,4 @@
-package lpcorpus
+package decoderfuzz
 
 import (
 	"bytes"
