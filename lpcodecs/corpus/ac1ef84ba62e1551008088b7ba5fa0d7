@@ -1,0 +1,1 @@
+cpu,host=serverA,region=us-east str="foo \" bar" 1000000000

@@ -1,0 +1,4 @@
+panic: inconsistent result between lineprotocol and influxdbv2models
+github.com/rogpeppe/line-protocol-corpus/lpcodecs/decoderfuzz.Fuzz
+go-fuzz-dep.Main
+main.main

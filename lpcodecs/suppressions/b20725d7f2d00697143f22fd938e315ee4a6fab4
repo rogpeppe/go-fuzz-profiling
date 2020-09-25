@@ -1,0 +1,4 @@
+panic: inconsistent result between influxdbv2models and telegraf
+github.com/rogpeppe/line-protocol-corpus/lpcodecs/decoderfuzz.Fuzz
+go-fuzz-dep.Main
+main.main

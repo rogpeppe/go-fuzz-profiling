@@ -1,0 +1,7 @@
+panic: runtime error: slice bounds out of range [1:0]
+github.com/influxdata/influxdb/v2/models.(*point).StringValue
+github.com/rogpeppe/line-protocol-corpus/lpcodecs.fromInfluxdbV2ModelsPoint
+github.com/rogpeppe/line-protocol-corpus/lpcodecs.influxdbv2modelsDecoder.Decode
+github.com/rogpeppe/line-protocol-corpus/lpcodecs/decoderfuzz.Fuzz
+go-fuzz-dep.Main
+main.main

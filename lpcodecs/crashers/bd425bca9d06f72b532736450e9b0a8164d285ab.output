@@ -1,0 +1,12 @@
+panic: runtime error: slice bounds out of range [:128486] with length 128485
+
+goroutine 1 [running]:
+github.com/influxdata/telegraf/plugins/parsers/influx.(*ParseError).Error(0xc000026640, 0xc0001089f0, 0x0)
+	/home/rogpeppe/src/go/pkg/mod/github.com/influxdata/telegraf@v1.15.3/plugins/parsers/influx/parser.go:51 +0x443
+github.com/rogpeppe/line-protocol-corpus/lpcodecs/decoderfuzz.Fuzz(0x7f77f88b8000, 0x1f5e6, 0x1f5e6, 0x3)
+	/home/rogpeppe/src/influx/line-protocol-corpus/lpcodecs/decoderfuzz/fuzz.go:36 +0x26b
+go-fuzz-dep.Main(0xc00008df70, 0x1, 0x1)
+	go-fuzz-dep/main.go:36 +0x1ad
+main.main()
+	github.com/rogpeppe/line-protocol-corpus/lpcodecs/decoderfuzz/go.fuzz.main/main.go:15 +0x52
+exit status 2

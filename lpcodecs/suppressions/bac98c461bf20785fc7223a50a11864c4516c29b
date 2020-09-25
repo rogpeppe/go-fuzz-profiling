@@ -1,0 +1,7 @@
+panic: runtime error: invalid memory address or nil pointer dereference
+github.com/influxdata/line-protocol.(*MetricHandler).Metric
+github.com/influxdata/line-protocol.(*Parser).Parse
+github.com/rogpeppe/line-protocol-corpus/lpcodecs.lineProtocolDecode
+github.com/rogpeppe/line-protocol-corpus/lpcodecs.Fuzz
+go-fuzz-dep.Main
+main.main

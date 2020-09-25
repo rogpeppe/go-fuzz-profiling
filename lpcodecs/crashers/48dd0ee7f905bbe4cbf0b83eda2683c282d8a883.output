@@ -1,0 +1,20 @@
+panic: runtime error: index out of range [100] with length 100
+
+goroutine 1 [running]:
+github.com/influxdata/influxdb/v2/models.scanTags(0x7f722f4bb000, 0x192, 0x192, 0x2, 0xc000051598, 0x64, 0x64, 0x0, 0x63, 0xc000051598, ...)
+	/home/rogpeppe/src/go/pkg/mod/github.com/influxdata/influxdb/v2@v2.0.0-beta.16.0.20200910124133-3e4c4028e6f7/models/points.go:681 +0x3e3
+github.com/influxdata/influxdb/v2/models.scanKey(0x7f722f4bb000, 0x192, 0x192, 0x0, 0x1e0, 0x7f722f821600, 0xc0000519e0, 0x40bbc6, 0xc000011430, 0x10)
+	/home/rogpeppe/src/go/pkg/mod/github.com/influxdata/influxdb/v2@v2.0.0-beta.16.0.20200910124133-3e4c4028e6f7/models/points.go:530 +0x100a
+github.com/influxdata/influxdb/v2/models.parsePoint(0x7f722f4bb000, 0x192, 0x192, 0x0, 0xeb00137da, 0x8b4960, 0x70941c, 0x1, 0x10100c0000c5860, 0x0, ...)
+	/home/rogpeppe/src/go/pkg/mod/github.com/influxdata/influxdb/v2@v2.0.0-beta.16.0.20200910124133-3e4c4028e6f7/models/points.go:407 +0x7e
+github.com/influxdata/influxdb/v2/models.ParsePointsWithPrecision(0x7f722f4bb000, 0x192, 0x192, 0x0, 0xeb00137da, 0x8b4960, 0x70941c, 0x1, 0x8b5300, 0x41201b, ...)
+	/home/rogpeppe/src/go/pkg/mod/github.com/influxdata/influxdb/v2@v2.0.0-beta.16.0.20200910124133-3e4c4028e6f7/models/points.go:390 +0x44c
+github.com/rogpeppe/line-protocol-corpus/lpcodecs.influxdbv2modelsDecoder.Decode(0xc00006c9f0, 0xc00006c540, 0xc000088da8, 0xc000088d00)
+	/home/rogpeppe/src/influx/line-protocol-corpus/lpcodecs/influxdbv2models.go:14 +0x137
+github.com/rogpeppe/line-protocol-corpus/lpcodecs/decoderfuzz.Fuzz(0x7f722f4bb000, 0x192, 0x192, 0x3)
+	/home/rogpeppe/src/influx/line-protocol-corpus/lpcodecs/decoderfuzz/fuzz.go:30 +0x1d3
+go-fuzz-dep.Main(0xc000051f70, 0x1, 0x1)
+	go-fuzz-dep/main.go:36 +0x1ad
+main.main()
+	github.com/rogpeppe/line-protocol-corpus/lpcodecs/decoderfuzz/go.fuzz.main/main.go:15 +0x52
+exit status 2

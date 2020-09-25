@@ -1,0 +1,16 @@
+panic: runtime error: slice bounds out of range [1:0]
+
+goroutine 1 [running]:
+github.com/influxdata/influxdb/v2/models.(*point).StringValue(0xc00011a000, 0x3, 0xc00011a000)
+	/home/rogpeppe/src/go/pkg/mod/github.com/influxdata/influxdb/v2@v2.0.0-beta.16.0.20200910124133-3e4c4028e6f7/models/points.go:2425 +0xcb
+github.com/rogpeppe/line-protocol-corpus/lpcodecs.fromInfluxdbV2ModelsPoint(0x743540, 0xc00011a000, 0x8, 0x0, 0xeb00137da)
+	/home/rogpeppe/src/influx/line-protocol-corpus/lpcodecs/influxdbv2models.go:73 +0x822
+github.com/rogpeppe/line-protocol-corpus/lpcodecs.influxdbv2modelsDecoder.Decode(0xc00006e420, 0xc00006e3f0, 0xc000070a68, 0xc0000709c0)
+	/home/rogpeppe/src/influx/line-protocol-corpus/lpcodecs/influxdbv2models.go:21 +0x277
+github.com/rogpeppe/line-protocol-corpus/lpcodecs/decoderfuzz.Fuzz(0x7f128399f000, 0x8, 0x8, 0x4)
+	/home/rogpeppe/src/influx/line-protocol-corpus/lpcodecs/decoderfuzz/fuzz.go:30 +0x1d3
+go-fuzz-dep.Main(0xc000051f70, 0x1, 0x1)
+	go-fuzz-dep/main.go:36 +0x1ad
+main.main()
+	github.com/rogpeppe/line-protocol-corpus/lpcodecs/decoderfuzz/go.fuzz.main/main.go:15 +0x52
+exit status 2

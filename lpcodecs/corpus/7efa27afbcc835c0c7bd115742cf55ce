@@ -1,0 +1,1 @@
+cpu,host=serverA,region=us-east str="foo=bar",value=1.0 1000000000

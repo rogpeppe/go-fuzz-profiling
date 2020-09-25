@@ -1,0 +1,5 @@
+panic: runtime error: slice bounds out of range [:129666] with length 129665
+github.com/influxdata/telegraf/plugins/parsers/influx.(*ParseError).Error
+github.com/rogpeppe/line-protocol-corpus/lpcodecs/decoderfuzz.Fuzz
+go-fuzz-dep.Main
+main.main

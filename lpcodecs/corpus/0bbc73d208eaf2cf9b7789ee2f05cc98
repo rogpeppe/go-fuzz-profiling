@@ -1,0 +1,1 @@
+cpu,host=serverA,region=us-east int=10i,float=11.0,float2=12.1 1000000000
