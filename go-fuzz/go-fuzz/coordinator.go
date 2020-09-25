@@ -50,6 +50,7 @@ type CoordinatorWorker struct {
 
 // coordinatorMain is entry function for coordinator.
 func coordinatorMain(ln net.Listener) {
+	log.Printf("XXXXX in coordinatorMain")
 	m := &Coordinator{}
 	m.statsWriters = writerset.New()
 	m.startTime = time.Now()
@@ -110,6 +111,9 @@ func (c *Coordinator) broadcastStats() {
 
 	// log to stdout
 	log.Println(stats.String())
+	var rstats runtime.MemStats
+	runtime.ReadMemStats(&rstats)
+	log.Printf("	alloc %v; objects %v", rstats.HeapAlloc, rstats.HeapObjects)
 
 	// write to any http clients
 	b, err := json.Marshal(stats)

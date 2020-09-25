@@ -263,7 +263,7 @@ func (t *Testee) test(data []byte) (res int, ns uint64, cover, sonar []byte, cra
 	// The test binary can accumulate significant amount of memory,
 	// so we recreate it periodically.
 	t.execs++
-	if t.execs > 10000 {
+	if t.execs > 2 {
 		t.cmd.Process.Signal(syscall.SIGKILL)
 		retry = true
 		return

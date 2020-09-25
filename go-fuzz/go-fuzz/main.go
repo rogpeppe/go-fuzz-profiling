@@ -5,14 +5,18 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"net"
+	"net/http"
 	"os"
 	"os/signal"
 	"os/user"
 	"path/filepath"
 	"runtime"
 	"runtime/debug"
+	"runtime/pprof"
 	"sync/atomic"
 	"syscall"
 	"time"
@@ -56,7 +60,23 @@ func main() {
 	if *flagHTTP != "" && *flagWorker != "" {
 		log.Fatalf("both -http and -worker are specified")
 	}
-
+	pprofFile, _ := os.Create("/tmp/go-fuzz-heap.prof")
+	go func() {
+		time.Sleep(2 * time.Minute)
+		runtime.GC()
+		runtime.GC()
+		if err := pprof.WriteHeapProfile(pprofFile); err != nil {
+			log.Fatal("could not write memory profile: ", err)
+		}
+		pprofFile.Close()
+		log.Printf("written heap profile to /tmp/go-fuzz-heap.prof")
+		showMemStats()
+		os.Exit(1)
+	}()
+	go func() {
+		log.Printf("pprof on localhost:12345")
+		panic(http.ListenAndServe("localhost:12345", nil))
+	}()
 	go func() {
 		c := make(chan os.Signal, 1)
 		signal.Notify(c, syscall.SIGINT)
@@ -100,8 +120,8 @@ func main() {
 			// Try the default. Best effort only.
 			var bin string
 			cfg := new(packages.Config)
-			// Note that we do not set GO111MODULE here in order to respect any GO111MODULE 
-			// setting by the user as we are finding dependencies. See modules support 
+			// Note that we do not set GO111MODULE here in order to respect any GO111MODULE
+			// setting by the user as we are finding dependencies. See modules support
 			// comments in go-fuzz-build/main.go for more details.
 			cfg.Env = os.Environ()
 			pkgs, err := packages.Load(cfg, ".")
@@ -131,4 +151,31 @@ func expandHomeDir(path string) string {
 		path = filepath.Join(usr.HomeDir, path[2:])
 	}
 	return path
+}
+
+func showMemStats() {
+	var rstats runtime.MemStats
+	runtime.ReadMemStats(&rstats)
+	n, _ := runtime.MemProfile(nil, true)
+	records := make([]runtime.MemProfileRecord, n+100)
+	n, ok := runtime.MemProfile(records, true)
+	if !ok {
+		panic("runtime.MemProfile failed!")
+	}
+	var totalAlloc, totalObjects int64
+	var allocs, objects int64
+	for _, r := range records {
+		totalAlloc += r.AllocBytes
+		allocs += r.AllocBytes - r.FreeBytes
+		totalObjects += r.AllocObjects
+		objects += r.AllocObjects - r.FreeObjects
+	}
+	msg := fmt.Sprintf("alloc %v (%v); objects %v (%v); totalAlloc %v (%v); totalObjects %v (%v)",
+		rstats.HeapAlloc, allocs,
+		rstats.HeapObjects, objects,
+		rstats.TotalAlloc, totalAlloc,
+		rstats.Mallocs, totalObjects,
+	)
+	log.Printf("	%s", msg)
+	ioutil.WriteFile("/tmp/fuzz-memstats", []byte(msg+"\n"), 0666)
 }
